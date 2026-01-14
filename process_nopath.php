@@ -1,6 +1,4 @@
 <?php
-//Log
-$log_file = fopen("log.txt", "a+");
 //Path to software
 $pass_path = "...";
 // IDs
@@ -47,8 +45,6 @@ if (is_resource($process)) {
    //Shutdown the process
    proc_close($process);
 }
-fwrite($log_file, $process_result);
-fwrite($log_file, "\r\n\r\n");
 //Check if predicted
 $is_done = preg_match("|.*1 of 1 Substances are predicted.*|", @file_get_contents($pass_path.$uid.".HST"));
 if ($is_done == '1') {
@@ -88,8 +84,6 @@ if ($is_done == '1') {
    }
    //Convert to JSON
    $result_json = json_encode(["ad" => $ad_status, "values" => $result_norm]);
-   fwrite($log_file, $result_json);
-   fclose($log_file);
 }
 if ($is_done != '1') {
    $result_json = json_encode("no_result");
