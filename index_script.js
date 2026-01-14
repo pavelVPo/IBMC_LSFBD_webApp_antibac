@@ -61,7 +61,7 @@ async function send_cs() {
 	console.log(result);
 	result['picture'] = pic;
 	//Open new tab and bring the data there
-	const representation_tab = window.open("https://way2drug.com/antibac/antibac/represent.php", '_blank');
+	const representation_tab = window.open("https://way2drug.com/antibac/represent.php", '_blank');
 	if (representation_tab) {
     representation_tab.data = result;
 	}
