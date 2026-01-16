@@ -2,7 +2,7 @@
 //Log
 $log_file = fopen("log.txt", "a+");
 //Path to software
-$pass_path = "C:\PHP_dev\web_update_2026\antibac_soft\\";
+$pass_path = "...";
 // IDs
 $uid = uniqid();
 $sdf_name = $pass_path.$uid.".SDF";
@@ -102,4 +102,5 @@ if ($is_done != '1') {
 // Return the results to browser
 echo $result_json;
 //Exit
+
 exit();
