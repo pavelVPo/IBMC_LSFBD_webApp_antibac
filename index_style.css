@@ -45,9 +45,7 @@ nav ul {
   padding: 0;
   overflow: hidden;
 }
-nav ul li {
-  float: right;
-}
+
 nav ul li a {
   display: block;
   color: black;
@@ -59,6 +57,10 @@ nav ul li a {
 nav ul li a:hover {
   background-color: #ecf0f1;
 }
+table td, table th {
+    text-align: left;
+    font-size: 90%;
+  }
 .wrapper {
   grid-row: 1;
   min-height: 100%;
@@ -67,10 +69,23 @@ nav ul li a:hover {
   grid-template-rows: 1fr 8fr 1fr;
 }
 .menu {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
   background: linear-gradient(#bdc3c7, #ecf0f1);
   border-color: #bdc3c7 transparent #ecf0f1 transparent;
   color: black;
   padding: 5px;
+}
+.navli_right {
+  float: right;
+  grid-column: 2;
+  grid-row: 1;
+}
+.navli_left {
+  float: left;
+  grid-column: 1;
+  grid-row: 1;
 }
 .dlg_on {
 	min-height: 50vh;
@@ -85,11 +100,51 @@ nav ul li a:hover {
 .dlg_header {
 	min-height: 80px;
 }
+/* Variable font size for dialogs */
 .dlg_div {
-	min-height: 100%;
+	min-height: 80%;
+  max-height: 90%;
+  container-type: inline-size;
+}
+.dlg_txt {
+  font-size: 0.6em;
+}
+.dlg_ref {
+  white-space: pre-wrap;
+  font-size: 0.4em;
 }
 .dlg_btn {
-	min-height: 30px;
+	min-height: 5px;
+}
+@container (width < 900px) {
+  .dlg_txt {
+    font-size: 0.5em;
+  }
+  .dlg_ref {
+    font-size: 0.4em;
+  }
+}
+@container (height < 900px) {
+  .dlg_txt {
+    font-size: 0.5em;
+  }
+  .dlg_ref {
+    font-size: 0.4em;
+  }
+}
+.link_target_chembl {
+  text-decoration: none;
+  color: #3e857b;
+}
+#dwnld_btn {
+  margin: 0 0 0 1vw;
+  padding: 0.5vw;
+  background: #bdd1dbff;
+}
+#dwnld_btn:hover {
+  margin: 0 0 0 1vw;
+  padding: 0.5vw;
+  background: #879ba4;
 }
 #main_container{
 	height: 100%;
@@ -130,6 +185,7 @@ nav ul li a:hover {
   grid-column-start: 1;
   grid-column-end: 3;
   grid-row: 4;
+  max-height: 80%;
 }
 #container_download {
   grid-row: 5;
@@ -169,6 +225,7 @@ nav ul li a:hover {
 }
 #footer_txt {
 	text-align: center;
+  font-size: 90%;
 }
 #container_inner {
   grid-row: 2;

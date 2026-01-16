@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<title>Input chemical structure</title>
+	<title>Probable bacterial targets</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<!-- outer CSS and JS -->
 	<link href="css/index_style.css" type="text/css" rel="stylesheet" />
-	<script type="text/javascript" src="js/RDKit_min.js"></script>
+	<script type="text/javascript" src="js/table.js"></script>
 </head>
+
+
 <body>
-	<div class="wrapper">
+<div class="wrapper">
+
 	<nav class="menu">
-			<a href="https://www.way2drug.com/tdv/"> <span class="logo_svg"> <img style="height: auto; width: 80%; vertical-align: middle;" src="img/antibac_logo.svg"> </span> </a>
+		<div class="download_btn"><div class="spacer" id="spacer_1"></div><div class="spacer" id="spacer_1"></div><button id="dwnld_btn" autofocus>Download</button></div>
 		<ul>
 			<!-- SEE:
 			https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Schemes/javascript
@@ -23,34 +26,45 @@
 	</nav>
 
 	<main>
-		<!-- Add dropbox -->
-		<div class="container" id="main_container">
+		<div class="container" id="main_container_result">
 			<div class="spacer" id="spacer_1"> <p></p> </div>
-			<div class="container" id="mi_label_container">
-				<label for="main_input" id="mi_input">Enter the chemical structure in SMILES or MOL (V2000) format:</label>
+			<div id="container_appicability">
+				<h4 id="applicability"></h4>
 			</div>
-			<div class="spacer"id="spacer_2"> <p></p> </div>
-			<div class="container" id="mi_container">
-				<textarea type="text" id="main_input" name="main_input" minlength="4" maxlength="4000" required></textarea>
+			<div class="spacer" id="spacer_rslt_1"> <p></p> </div>
+			<div id="container_svg">
+			</div> 
+			<!-- table with the results -->
+			<div id="container_table" style="height: 50vh; overflow-y: scroll;">
+			<table id="table_data" class="display wrap" style="width:100%">
+				<thead>
+         			<tr>
+           			<th>Name</th>
+            		<th>Score</th>
+            		<th>ChEMBL ID</th>
+          			</tr>
+        		</thead>
+        		<tbody id="table_data_body">
+        		</tbody>
+			</table>
 			</div>
-			<div class="spacer" id="spacer_3"> <p></p> </div>
-			<div class="container" id="mi_btn_container">
-				<button class="btn_send" type="button" id="predict_btn">predict</button>
-				<button class="btn_invoke" type="button" id="open_draw_btn">draw</button>
+			<div id="container_download">
 			</div>
-			<div class="spacer" id="spacer_4"> <p></p> </div>
+			<div class="spacer" id="spacer_rslt_btm"> <p></p> </div>	
 		</div>
 	</main>
-	<!-- SEE: https://developer.mozilla.org/en-US/docs/Web/CSS/Layout_cookbook/Sticky_footers -->
+
 	<footer>
 		<p class="text" id="footer_txt">Way2Drug &#169 2011 - <script type="text/javascript">document.write(new Date().getFullYear());</script> | 
 			<a href="http://way2drug.com/prpol.php" target="_blank">Privacy Policy </a>
 			The work was performed in the framework of the State Academies of Sciences Basic Research program for 2020-2030.
 		</p>
 	</footer>
-
-	</div>
+	
+</div>
 </body>
+
+
 <dialog class="dlg_off" id="about_dlg">
 	<header class="dlg_header"><h2>About</h2></header>
 	<div class="dlg_div">
@@ -132,15 +146,17 @@
   <div id="btn_close_draw" class="dlg_btn"><button autofocus>Close</button></div>
 </dialog>
 </html>
-<script>
-window
-    .initRDKitModule({ locateFile: () => 'wasm/RDKit_min.wasm' })
-    .then(function (RDKit) {
-      window.RDKit = RDKit;
-    })
-    .catch(() => {
-    	window.alert("RDKit is not available, please reload the page");
-      console.log("RDKit is not available, please reload the page or try again latter");
-    });
-</script>
 <script src="js/main_script.js"></script>
+<script type="text/javascript">
+	// Some vars
+	const names_arr = Array("name", "val", "id");
+	const values = data['values'];
+	const elem_table_body = document.getElementById("table_data_body");
+	const elem_applicability = document.getElementById("applicability");
+	const elem_svg = document.getElementById('container_svg');
+	// Actually populate the table
+	sort_targets_desc(values, elem_table_body, names_arr);
+	// Add info on applicability
+	elem_applicability.innerHTML = data.ad;
+	elem_svg.innerHTML = data.picture.replace(/<rect.*rect>/, "");
+</script>
